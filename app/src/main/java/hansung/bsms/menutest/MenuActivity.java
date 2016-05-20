@@ -85,7 +85,7 @@ public class MenuActivity extends Activity {
                     setButtonSchedule(univ.getSchedule());
                     setButtonWebsite(univ.getWebsite());
                     setButtonTel(univ.getTel());
-                    setButtonCampusMap(univ.getCampusMap());
+                    setButtonCampusMap(univ.getKorName(), univ.getLatitude(), univ.getLongitude());
                     setButtonDirections(univ.getLatitude(), univ.getLongitude());
                 }
             }
@@ -161,28 +161,24 @@ public class MenuActivity extends Activity {
         });
     }
 
-    private void setButtonCampusMap(String value) {
-        final String campusMap = value;
+    private void setButtonCampusMap(String value1, double value2, double value3) {
+        final String name = value1;
+        final double latitude = value2;
+        final double longitude = value3;
 
         btnCampusMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(campusMap)));
-//                if (locationManager != null) {
-//                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-//                            || ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
-//                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, locationListener);
-//                    }
-//                }
-//
-//                try {
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("daummaps://look?p=" + latitude + "," + longitude));
-//                    context.startActivity(intent);
-//                } catch (Exception e) {
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=net.daum.android.map"));
-//                    context.startActivity(intent);
-//                }
+                try {
+                    Intent intent = new Intent(context, CampusMapActivity.class);
+                    intent.putExtra("Name", name);
+                    intent.putExtra("Latitude", latitude);
+                    intent.putExtra("Longitude", longitude);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=net.daum.android.map"));
+                    context.startActivity(intent);
+                }
             }
         });
     }
