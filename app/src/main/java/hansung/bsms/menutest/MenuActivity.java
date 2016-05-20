@@ -162,7 +162,7 @@ public class MenuActivity extends Activity {
     }
 
     private void setButtonCampusMap(String value1, double value2, double value3) {
-        final String name = value1;
+        final String korName = value1;
         final double latitude = value2;
         final double longitude = value3;
 
@@ -171,7 +171,7 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 try {
                     Intent intent = new Intent(context, CampusMapActivity.class);
-                    intent.putExtra("Name", name);
+                    intent.putExtra("korName", korName);
                     intent.putExtra("Latitude", latitude);
                     intent.putExtra("Longitude", longitude);
                     context.startActivity(intent);
